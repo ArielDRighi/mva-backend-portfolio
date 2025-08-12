@@ -60,7 +60,21 @@ export class ClientsPortalService {
   }
 
   async createSatisfactionSurvey(surveyData: CreateSatisfactionSurveyDto) {
-    const survey = this.satisfactionSurveyRepository.create(surveyData);
+    // Map DTO fields to entity fields
+    const mappedData = {
+      nombre_empresa: surveyData.cliente,
+      lugar_proyecto: surveyData.asunto || '',
+      contacto: surveyData.cliente,
+      medio_contacto: 'Portal Web',
+      tiempo_respuesta: 'Inmediato',
+      calificacion_atencion: surveyData.calificacion,
+      accesibilidad_comercial: 'Buena',
+      relacion_precio_valor: 'Satisfactoria',
+      recomendaria: surveyData.calificacion >= 4 ? 'Sí' : 'No',
+      comentario_adicional: surveyData.comentario || null,
+    };
+
+    const survey = this.satisfactionSurveyRepository.create(mappedData);
     try {
       await this.satisfactionSurveyRepository.save(survey);
       return survey;
@@ -99,7 +113,26 @@ export class ClientsPortalService {
     if (!survey) {
       throw new BadRequestException('Encuesta no encontrada');
     }
-    Object.assign(survey, surveyData);
+
+    // Map DTO fields to entity fields for update
+    const mappedData: Partial<SatisfactionSurvey> = {};
+
+    if (surveyData.cliente !== undefined) {
+      mappedData.nombre_empresa = surveyData.cliente;
+      mappedData.contacto = surveyData.cliente;
+    }
+    if (surveyData.asunto !== undefined) {
+      mappedData.lugar_proyecto = surveyData.asunto;
+    }
+    if (surveyData.calificacion !== undefined) {
+      mappedData.calificacion_atencion = surveyData.calificacion;
+      mappedData.recomendaria = surveyData.calificacion >= 4 ? 'Sí' : 'No';
+    }
+    if (surveyData.comentario !== undefined) {
+      mappedData.comentario_adicional = surveyData.comentario;
+    }
+
+    Object.assign(survey, mappedData);
     try {
       await this.satisfactionSurveyRepository.save(survey);
       return survey;
