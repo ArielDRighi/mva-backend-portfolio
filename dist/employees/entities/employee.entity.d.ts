@@ -1,0 +1,33 @@
+import { User } from '../../users/entities/user.entity';
+import { EmployeeLeave } from '../../employee_leaves/entities/employee-leave.entity';
+import { SalaryAdvance } from '../../salary_advance/entities/salary_advance.entity';
+import { RopaTalles } from '../../clothing/entities/clothing.entity';
+import { ContactosEmergencia } from './emergencyContacts.entity';
+import { Licencias } from './license.entity';
+import { ExamenPreocupacional } from './examenPreocupacional.entity';
+export declare class Empleado {
+    id: number;
+    nombre: string;
+    apellido: string;
+    documento: string;
+    telefono: string;
+    email: string;
+    direccion: string;
+    fecha_nacimiento: Date;
+    fecha_contratacion: Date;
+    cargo: string;
+    estado: string;
+    numero_legajo: number;
+    cuil: string;
+    cbu: string;
+    emergencyContacts: ContactosEmergencia[];
+    licencia: Licencias;
+    usuario: User;
+    diasVacacionesTotal: number;
+    diasVacacionesRestantes: number;
+    diasVacacionesUsados: number;
+    leaves: EmployeeLeave[];
+    advances: SalaryAdvance[];
+    talleRopa: RopaTalles;
+    examenesPreocupacionales: ExamenPreocupacional[];
+}
