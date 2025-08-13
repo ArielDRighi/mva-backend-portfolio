@@ -35,11 +35,13 @@ async function bootstrap() {
         origin: (origin, callback) => {
             const allowedOrigins = [
                 process.env.FRONTEND_URL,
+                process.env.VERCEL_URL,
                 'http://localhost:3000',
                 'http://localhost:3001',
                 'http://145.79.1.115:3001',
                 'https://145.79.1.115:3001',
                 'https://mvasrl.com',
+                'https://mva-admin-portfolio-e7qgt3qs4-ariel-righis-projects.vercel.app',
             ].filter(Boolean);
             const isVercelDomain = origin &&
                 (origin.includes('.vercel.app') || origin.includes('.vercel.com'));

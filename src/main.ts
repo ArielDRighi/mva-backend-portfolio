@@ -43,23 +43,29 @@ async function bootstrap() {
   );
   // Configuración de CORS con opciones más específicas para HTTPS
   app.enableCors({
-    origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
+    origin: (
+      origin: string | undefined,
+      callback: (error: Error | null, allow?: boolean) => void,
+    ) => {
       const allowedOrigins = [
         process.env.FRONTEND_URL,
+        process.env.VERCEL_URL, // Nueva variable para tu frontend de Vercel
         'http://localhost:3000',
         'http://localhost:3001',
         'http://145.79.1.115:3001',
         'https://145.79.1.115:3001',
         'https://mvasrl.com',
+        'https://mva-admin-portfolio-e7qgt3qs4-ariel-righis-projects.vercel.app',
       ].filter(Boolean);
-      
+
       // Permitir todos los dominios de Vercel
-      const isVercelDomain = origin && 
+      const isVercelDomain =
+        origin &&
         (origin.includes('.vercel.app') || origin.includes('.vercel.com'));
-      
+
       // Permitir requests sin origin (como Postman, aplicaciones móviles)
       if (!origin) return callback(null, true);
-      
+
       // Permitir si está en la lista o es un dominio de Vercel
       if (allowedOrigins.includes(origin) || isVercelDomain) {
         console.log('✅ Origin permitido:', origin);
