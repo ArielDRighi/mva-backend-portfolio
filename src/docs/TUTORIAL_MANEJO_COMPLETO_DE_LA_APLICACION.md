@@ -139,8 +139,8 @@ Conexión a la base de datos establecida correctamente
 ¡Usuario administrador creado exitosamente!
 -------------------------------------
 nombre: admin
-Password: admin123
-Email: admin@mva.com
+Password: Test1234
+Email: test@ar.com
 Roles: ADMIN
 ID: 1
 -------------------------------------
@@ -159,7 +159,7 @@ Content-Type: application/json
 
 {
   "username": "admin",
-  "password": "admin123"
+  "password": "Test1234"
 }
 ```
 
@@ -171,7 +171,7 @@ La respuesta incluirá el token de acceso necesario para las solicitudes autenti
   "user": {
     "id": 1,
     "nombre": "admin",
-    "email": "admin@mva.com",
+    "email": "test@ar.com",
     "empleadoId": null,
     "estado": "ACTIVO",
     "roles": ["ADMIN"]
@@ -1419,7 +1419,7 @@ Si recibes errores de autenticación:
 
    {
      "username": "admin",
-     "password": "admin123"
+     "password": "Test1234"
    }
    ```
 

@@ -122,12 +122,12 @@ El script muestra el progreso cada 10 clientes insertados y al final muestra el 
 
 Este script crea un usuario administrador con las siguientes credenciales:
 
-| Campo    | Valor         |
-| -------- | ------------- |
-| Username | admin         |
-| Password | admin123      |
-| Email    | admin@mva.com |
-| Rol      | ADMIN         |
+| Campo    | Valor       |
+| -------- | ----------- |
+| Username | admin       |
+| Password | Test1234    |
+| Email    | test@ar.com |
+| Rol      | ADMIN       |
 
 > **¡IMPORTANTE!** Recuerda cambiar la contraseña después del primer inicio de sesión.
 

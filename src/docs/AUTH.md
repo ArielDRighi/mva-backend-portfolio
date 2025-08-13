@@ -283,7 +283,7 @@ POST /api/auth/login
 Content-Type: application/json
 
 {
-  "username": "admin@mva.com",
+  "username": "test@ar.com",
   "password": "AdminPass2025"
 }
 ```

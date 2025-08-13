@@ -32,8 +32,8 @@ Conexión a la base de datos establecida correctamente
 ¡Usuario administrador creado exitosamente!
 -------------------------------------
 Username: admin
-Password: admin123
-Email: admin@mva.com
+Password: Test1234
+Email: test@ar.com
 Roles: ADMIN
 ID: 1
 -------------------------------------
@@ -44,12 +44,12 @@ Script finalizado correctamente
 
 ## Credenciales del usuario administrador
 
-| Campo    | Valor         |
-| -------- | ------------- |
-| Username | admin         |
-| Password | admin123      |
-| Email    | admin@mva.com |
-| Rol      | ADMIN         |
+| Campo    | Valor       |
+| -------- | ----------- |
+| Username | admin       |
+| Password | Test1234    |
+| Email    | test@ar.com |
+| Rol      | ADMIN       |
 
 ## Información importante
 
@@ -75,4 +75,4 @@ Si encuentras errores al ejecutar el script, verifica lo siguiente:
 - Las credenciales de conexión son correctas
 - El esquema de la tabla usuarios existe y tiene la estructura esperada
 - Los módulos necesarios están instalados (bcrypt, dotenv, etc.)
-.
+  .

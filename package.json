@@ -26,7 +26,10 @@
     "seed:clients": "ts-node -r tsconfig-paths/register src/scripts/seed-clients.ts",
     "seed:test-data": "ts-node -r tsconfig-paths/register src/scripts/seed-test-data.ts",
     "seed:admin": "ts-node -r tsconfig-paths/register src/scripts/create-admin-standalone.ts",
-    "migrate:cbu": "ts-node -r tsconfig-paths/register src/scripts/migrate-cbu-length.ts"
+    "seed:admin:railway": "npm run build && ts-node -r tsconfig-paths/register src/scripts/create-admin-railway.ts",
+    "seed:data:railway": "npm run build && ts-node -r tsconfig-paths/register src/scripts/seed-data-railway.ts",
+    "migrate:cbu": "ts-node -r tsconfig-paths/register src/scripts/migrate-cbu-length.ts",
+    "setup:railway": "npm run build && ts-node -r tsconfig-paths/register src/scripts/setup-railway-db.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

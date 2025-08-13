@@ -11,17 +11,35 @@ async function createAdminUser() {
   console.log('Iniciando proceso de creación de usuario administrador...');
 
   // Crear una conexión directa a la base de datos
-  const dataSource = new DataSource({
-    type: 'postgres',
-    host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT || '5432', 10),
-    username: process.env.DB_USERNAME || 'postgres',
-    password: process.env.DB_PASSWORD || 'postgres',
-    database: process.env.DB_DATABASE || 'mva_db',
-    schema: process.env.DB_SCHEMA,
-    entities: ['dist/**/*.entity.js'],
-    synchronize: false,
-  });
+  let dataSource: DataSource;
+
+  if (process.env.DATABASE_URL) {
+    // Usar DATABASE_URL para Railway/Heroku
+    dataSource = new DataSource({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      entities: ['dist/**/*.entity.js'],
+      synchronize: false,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
+    console.log('Usando DATABASE_URL para conexión a Railway');
+  } else {
+    // Fallback a variables individuales para desarrollo local
+    dataSource = new DataSource({
+      type: 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      port: parseInt(process.env.DB_PORT || '5432', 10),
+      username: process.env.DB_USERNAME || 'postgres',
+      password: process.env.DB_PASSWORD || 'postgres',
+      database: process.env.DB_DATABASE || 'mva_db',
+      schema: process.env.DB_SCHEMA,
+      entities: ['dist/**/*.entity.js'],
+      synchronize: false,
+    });
+    console.log('Usando variables individuales para conexión local');
+  }
 
   try {
     // Inicializar la conexión
@@ -30,7 +48,7 @@ async function createAdminUser() {
 
     // Usar SQL directo en lugar de repositorios TypeORM para evitar problemas de metadatos
     // Primero verificamos si el usuario admin ya existe
-    const checkAdminQuery = `SELECT * FROM users WHERE nombre = 'admin' OR email = 'admin@mva.com'`;
+    const checkAdminQuery = `SELECT * FROM users WHERE nombre = 'admin' OR email = 'test@ar.com'`;
     const existingAdmin: Array<{ nombre: string; email: string }> =
       await dataSource.query(checkAdminQuery);
 
@@ -43,7 +61,7 @@ async function createAdminUser() {
 
     // Crear el hash de la contraseña
     const saltRounds = 10;
-    const passwordHash = await bcrypt.hash('admin123', saltRounds);
+    const passwordHash = await bcrypt.hash('Test1234', saltRounds);
 
     // Insertar el usuario admin directamente con SQL
     const insertAdminQuery = `
@@ -61,7 +79,7 @@ async function createAdminUser() {
 
     const result = await dataSource.query<AdminUser[]>(insertAdminQuery, [
       'admin',
-      'admin@mva.com',
+      'test@ar.com',
       passwordHash,
       'ACTIVO',
       '{ADMIN}',
@@ -71,8 +89,8 @@ async function createAdminUser() {
     const adminUser = result[0];
     console.log('¡Usuario administrador creado exitosamente!');
     console.log('-------------------------------------');
-    console.log('Email: admin@mva.com (usar para iniciar sesión)');
-    console.log('Password: admin123');
+    console.log('Email: test@ar.com (usar para iniciar sesión)');
+    console.log('Password: Test1234');
     console.log('Nombre: admin');
     console.log('Roles: ADMIN');
     console.log('ID:', adminUser.usuario_id);
