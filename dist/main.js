@@ -39,16 +39,19 @@ async function bootstrap() {
                 'http://localhost:3001',
                 'http://145.79.1.115:3001',
                 'https://145.79.1.115:3001',
-                'https://mvasrl.com'
+                'https://mvasrl.com',
             ].filter(Boolean);
+            const isVercelDomain = origin &&
+                (origin.includes('.vercel.app') || origin.includes('.vercel.com'));
             if (!origin)
                 return callback(null, true);
-            console.log('Origin recibido:', origin);
-            console.log('Orígenes permitidos:', allowedOrigins);
-            if (allowedOrigins.includes(origin)) {
+            if (allowedOrigins.includes(origin) || isVercelDomain) {
+                console.log('✅ Origin permitido:', origin);
                 return callback(null, true);
             }
             else {
+                console.log('❌ Origin rechazado:', origin);
+                console.log('Orígenes permitidos:', allowedOrigins);
                 return callback(new Error('No permitido por CORS'));
             }
         },
